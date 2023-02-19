@@ -8,10 +8,10 @@ import "fmt"
 // #cgo LDFLAGS: -L../../cpp/lib -ltoy-lib
 import "C"
 
-func PrintHelloWorld(app string) {
-	fmt.Printf("Hello world from %s!\n", app)
+func FormatHelloWorld(app string) string {
+	return fmt.Sprintf("Hello world from %s!\n", app)
 }
 
-func PrintHelloWorldCpp(app string) {
+func PrintHelloWorldCpp() {
 	C.lib_c_wrapper_say_hello()
 }

@@ -1,8 +1,12 @@
 package main
 
-import "github.com/KnoblauchPilze/template-go-cpp/pkg/example"
+import (
+	"fmt"
+
+	"github.com/KnoblauchPilze/template-go-cpp/pkg/example"
+)
 
 func main() {
-	example.PrintHelloWorld("cli")
-	example.PrintHelloWorldCpp("cli")
+	fmt.Print(example.FormatHelloWorld("cli"))
+	example.PrintHelloWorldCpp()
 }
