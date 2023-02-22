@@ -6,7 +6,7 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
-set (CMAKE_INSTALL_PREFIX "../../../..")
+set (CMAKE_INSTALL_BINDIR "bin")
 
 #set (CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -20,8 +20,18 @@ add_subdirectory (
 	${CMAKE_CURRENT_SOURCE_DIR}/src
 	)
 
-target_link_libraries (toy-app
-	Eigen3::Eigen)
+target_include_directories (toy-app PRIVATE
+	"../../include"
+	)
+
+target_link_directories (toy-app PUBLIC
+	"../../lib"
+	)
+
+target_link_libraries (toy-app PUBLIC
+	Eigen3::Eigen
+	toy-lib
+	)
 
 install (TARGETS toy-app
 	CONFIGURATIONS Release

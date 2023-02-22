@@ -2,7 +2,7 @@
 PROC_COUNT ?= 8
 
 install: release
-	cd build/Release && cmake --install . --config Release
+	cd build/Release && cmake --install . --config Release --prefix ../../../..
 
 release:
 	mkdir -p build/Release

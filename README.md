@@ -26,6 +26,24 @@ This is the list of the folders that we kept:
 * [scripts](https://github.com/Knoblauchpilze/template-go/tree/master/scripts): the list of scripts/tools used by this project.
 * [test](https://github.com/Knoblauchpilze/template-go/tree/master/test): where tests are stored.
 
+# What's already there
+
+This project already defines some basic structure allowing applications and libraries defined in it to properly work together and be used in coordination.
+
+## The root Makefile
+
+The root [Makefile](Makefile) defines some targets to setup, build and clean the whole repository at once. This is very convenient in order to start from scratch easily and obtain a fully functional set of applications.
+
+It also defines a `test` target, which helps to run the tests defined for this project.
+
+Finally a convenience `run` target allows to execute an application defined in the repository in a controlled environment and with a setup of the necessary shared libraries search pathes needed. This can be accessed through `make run name-of-the-app-to-execute`. This is only available after a successful `make` command has been performed already.
+
+## What to commit and not commit
+
+The principle followed by this repository is that binaries and compiled libraries shouldn't be committed, along with the build resources: this is something that can be deduced from the source and which is best locally generated. This means that:
+* the content of [bin](bin) is usually to be excluded from the versioning.
+* the content of [cpp/bin](cpp/bin), [cpp/include](cpp/include) and [cpp/lib](cpp/lib) as well.
+
 # How to extend this project
 
 ## Expand the Go projects
@@ -44,9 +62,23 @@ The cpp files are located in the [cpp](cpp) folder. It contains the following se
 
 ### Adding a library
 
+An example library is provided in the [toy-lib](cpp/src/toy-lib) folder. Adding a new library can be done by copying this folder and renaming it as needed. The places where some renaming should happen are:
+* the [Makefile](cpp/src/toy-lib/Makefile).
+* the [CMakeLists.txt](cpp/src/toy-lib/CMakeLists.txt).
+* the root cpp [Makefile](cpp/Makefile).
+
+The existing `Makefile` already provides targets to build, clean and install the library in a folder which where they can be found by other cpp applications and libraries. The root `Makefile` can in turn package them automatically to be accessed by Go applications.
+
 ### Adding an application
 
-### Using a library in a Go application
+An example application is provided in the [toy-app](cpp/src/toy-app) folder. Copying it to a new folder and renaming some properties is the easiest way to create a new application. The places where some renaming should happen are:
+* the [Makefile](cpp/src/toy-app/Makefile).
+* the [CMakeLists.txt](cpp/src/toy-app/CMakeLists.txt).
+* the root cpp [Makefile](cpp/Makefile).
+
+The existing `Makefile` already provides targets to build, clean and install the application using pre-existing cpp libraries to a place where the root `Makefile` can then find them and package them to be used by Go application can automatically access it if needed. It also already provides a neat environment so that it can be executed from the root of this project using the [make run app_name](#the-root-makefile) syntax.
+
+### Using a cpp library in a Go application
 
 When a cpp library is published (i.e. available in [cpp/lib](cpp/lib)), it is possible to use it in Go packages. This repository already provides an example in an [example](pkg/example/printer.go) package. It generally looks like this:
 
@@ -74,7 +106,3 @@ In general just run the following command to run all tests:
 ```bash
 make test
 ```
-
-### Tests for cpp
-
-TODO: Handle this.

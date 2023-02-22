@@ -9,7 +9,7 @@ install:
 	@echo "$(COLOR_HIGHLIGHT_GREEN)Building cpp components!$(COLOR_CLEAR)"
 	cd cpp && make install
 	cp cpp/bin/* bin/
-	@echo "$(COLOR_HIGHLIGHT_BLUE)Building apps...$(COLOR_CLEAR)"
+	@echo "$(COLOR_HIGHLIGHT_BLUE)Installing apps...$(COLOR_CLEAR)"
 	cd cmd/cli && make install
 	@echo "$(COLOR_HIGHLIGHT_GREEN)Success!$(COLOR_CLEAR)"
 
